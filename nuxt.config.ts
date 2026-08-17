@@ -15,8 +15,9 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
-    // Private — only available on the server
-    googleBooksApiKey: process.env.GOOGLE_BOOKS_API_KEY || '',
+    // Private — only available on the server at runtime.
+    // Default to empty string so Nitro does not inline the build-time secret into the bundle.
+    googleBooksApiKey: '',
   },
 
   app: {

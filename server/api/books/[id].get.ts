@@ -16,7 +16,10 @@ export default defineEventHandler(async (event) => {
   }
 
   const url = new URL(`https://www.googleapis.com/books/v1/volumes/${encodeURIComponent(id)}`)
-  url.searchParams.set('key', config.googleBooksApiKey as string)
+  const apiKey = (config.googleBooksApiKey || process.env.GOOGLE_BOOKS_API_KEY || process.env.NUXT_GOOGLE_BOOKS_API_KEY || '') as string
+  if (apiKey) {
+    url.searchParams.set('key', apiKey)
+  }
 
   try {
     const data = await $fetch(url.toString())
